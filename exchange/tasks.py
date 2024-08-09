@@ -1,10 +1,8 @@
-from .models import ExchangeRate
+from exchange.utils import exchange_rate_task
 
 
-def update_db():
-    # Retrieve notifications to be sent via email
-    ExchangeRate.objects.create(
-        currency_from="USDT",
-        currency_to="RUB",
-        rate=45.32,
-    )
+def fetch_exchange_rate():
+    exchange_rate_task.fetch_exchange_rate()
+
+def check_exchange_rates():
+    exchange_rate_task.check_exchange_rates()

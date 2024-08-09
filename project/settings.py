@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 1 add this line django_crontab
     'django_crontab',
+    'django_extensions',
     # 2 add this line for your app
     'exchange.apps.ExchangeConfig',
 
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "Ru-ru"
 
 TIME_ZONE = "UTC"
 
@@ -130,14 +131,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # 3 Define the CRONJOBS
 # Here, */1 * * * * specifies that the task should run every 1 minute
 CRONJOBS = [
-    ('*/1 * * * *', 'exchange.tasks.update_db'),
+    ('*/1 * * * *', 'exchange.tasks.fetch_exchange_rate'),
     # Adjust the timing as per your requirement
 ]
 
-# 4 Configure SMTP  following parameters
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587  # SMTP port for Gmail
-EMAIL_USE_TLS = True  # Use TLS encryption
-EMAIL_HOST_USER = 'your-email@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'your-password'  # Your Gmail password or an App Password
+GARANTEX_URL = "https://garantex.org/api/v2/trades"

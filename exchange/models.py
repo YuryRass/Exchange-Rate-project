@@ -23,7 +23,6 @@ class ExchangeRate(models.Model):
         verbose_name="Значение курса",
     )
     timestamp = models.DateTimeField(
-        auto_now_add=True,
         db_index=True,
         verbose_name="Дата и время получения курса",
     )
