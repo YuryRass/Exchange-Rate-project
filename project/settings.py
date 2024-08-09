@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     # 1 add this line django_crontab
     'django_crontab',
     # 2 add this line for your app
-    'my_app.apps.MyAppConfig',
+    'exchange.apps.ExchangeConfig',
 
 ]
 
@@ -130,7 +130,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # 3 Define the CRONJOBS
 # Here, */1 * * * * specifies that the task should run every 1 minute
 CRONJOBS = [
-    ('*/1 * * * *', 'my_app.tasks.update_db'),
+    ('*/1 * * * *', 'exchange.tasks.update_db'),
     # Adjust the timing as per your requirement
 ]
 
