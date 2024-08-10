@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Валюты</title>
+</head>
+<body>
+    <h1>Список обмена валют</h1>
+    <ul>
+        {% for item in rates %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
