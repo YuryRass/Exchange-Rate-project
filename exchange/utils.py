@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from enum import Enum
-import httpx
+import httpx  # type: ignore
 from django.utils import timezone
 from asgiref.sync import sync_to_async
 
