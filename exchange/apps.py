@@ -1,3 +1,4 @@
+import os
 from django.apps import AppConfig
 
 
@@ -6,5 +7,7 @@ class ExchangeConfig(AppConfig):
     name = "exchange"
 
     def ready(self):
-        from exchange.tasks import check_exchange_rates
-        check_exchange_rates()
+        if not os.getenv("RUNNING_CRONTAB"):
+            from exchange.tasks import check_exchange_rates
+
+            check_exchange_rates()

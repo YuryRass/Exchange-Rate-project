@@ -44,20 +44,24 @@ class ExchangeRateTask:
                 response.raise_for_status()
                 rate = response.json()[0].get("price")
 
+            if timestamp:
+                naive_datetime = datetime.fromtimestamp(timestamp)
+                naive_datetime = timezone.make_aware(naive_datetime)
+            else:
+                naive_datetime = timezone.now()
+
             data = {
                 "rate": float(rate),
                 "currency_from": "USDT" if market == Rates.USDTRUB else "RUB",
                 "currency_to": "RUB" if market == Rates.USDTRUB else "USDT",
-                "timestamp": (
-                    datetime.fromtimestamp(timestamp) if timestamp else timezone.now()
-                ),
+                "timestamp": naive_datetime,
             }
 
             await self.__create_rec(**data)
         except httpx.HTTPStatusError as ex:
-            print(f"HTTP error occurred: {ex}")
+            print(f"Произошла ошибка HTTP: {ex}")
         except Exception as ex:
-            print(f"An error occurred: {ex}")
+            print(f"Произошла ошибка: {ex}")
 
     async def __get_last_rec(self) -> ExchangeRate | None:
         return await sync_to_async(ExchangeRate.objects.last)()

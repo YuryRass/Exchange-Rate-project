@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ASGI_APPLICATION = "project.asgi.application"
 
 # Application definition
 
@@ -38,11 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # 1 add this line django_crontab
-    'django_crontab',
-    'django_extensions',
+    "django_crontab",
+    "django_extensions",
     # 2 add this line for your app
-    'exchange.apps.ExchangeConfig',
-
+    "exchange.apps.ExchangeConfig",
 ]
 
 MIDDLEWARE = [
@@ -131,7 +131,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # 3 Define the CRONJOBS
 # Here, */1 * * * * specifies that the task should run every 1 minute
 CRONJOBS = [
-    ('*/1 * * * *', 'exchange.tasks.fetch_exchange_rate'),
+    ("*/1 * * * *", "exchange.tasks.fetch_exchange_rate"),
     # Adjust the timing as per your requirement
 ]
 
