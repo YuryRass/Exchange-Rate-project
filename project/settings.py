@@ -10,26 +10,67 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+from logger import LOGGING_LEVEL, LOGGING_FORMAT, DEBUG_VALUE
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-7@0dr3%uewy2&#kbu6ikj++stban@fr-9()u2^hen*8qt%u8$p"
+DEBUG = DEBUG_VALUE
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = []
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+ROOT_DIR = Path(__file__).resolve().parent
+BASE_DIR = ROOT_DIR.parent
+LOGS_DIR = BASE_DIR / "logs"
+LOGS_DIR.mkdir(exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {funcName} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": LOGGING_LEVEL,
+            "class": "logging.FileHandler",
+            "filename": LOGS_DIR.joinpath("django.log"),
+            "formatter": "verbose",
+        },
+        "exchange_file": {
+            "level": LOGGING_LEVEL,
+            "class": "logging.FileHandler",
+            "filename": LOGS_DIR.joinpath("exchange.log"),
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": LOGGING_LEVEL,
+            "propagate": True,
+        },
+        "exchange": {  # Логгер для задач cron
+            "handlers": ["exchange_file"],
+            "level": LOGGING_LEVEL,
+            "propagate": False,
+        },
+    },
+}
+
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 
 ASGI_APPLICATION = "project.asgi.application"
 
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
