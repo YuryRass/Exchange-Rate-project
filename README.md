@@ -1,4 +1,3 @@
-```markdown
 # Exchange-Rate project
 
 ## Prerequisites
