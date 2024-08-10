@@ -6,26 +6,60 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exchange', '0001_initial'),
+        ("exchange", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ExchangeRate',
+            name="ExchangeRate",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('currency_from', models.CharField(choices=[('USDT', 'USDT'), ('RUB', 'RUB')], max_length=4, verbose_name='Валюта источник')),
-                ('currency_to', models.CharField(choices=[('USDT', 'USDT'), ('RUB', 'RUB')], max_length=4, verbose_name='Валюта назначение')),
-                ('rate', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Значение курса')),
-                ('timestamp', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата и время получения курса')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "currency_from",
+                    models.CharField(
+                        choices=[("USDT", "USDT"), ("RUB", "RUB")],
+                        max_length=4,
+                        verbose_name="Валюта источник",
+                    ),
+                ),
+                (
+                    "currency_to",
+                    models.CharField(
+                        choices=[("USDT", "USDT"), ("RUB", "RUB")],
+                        max_length=4,
+                        verbose_name="Валюта назначение",
+                    ),
+                ),
+                (
+                    "rate",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=10, verbose_name="Значение курса"
+                    ),
+                ),
+                (
+                    "timestamp",
+                    models.DateTimeField(
+                        auto_now_add=True,
+                        db_index=True,
+                        verbose_name="Дата и время получения курса",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Обмен курса',
-                'verbose_name_plural': 'Обмены курса',
-                'unique_together': {('currency_from', 'currency_to', 'timestamp')},
+                "verbose_name": "Обмен курса",
+                "verbose_name_plural": "Обмены курса",
+                "unique_together": {("currency_from", "currency_to", "timestamp")},
             },
         ),
         migrations.DeleteModel(
-            name='Notification',
+            name="Notification",
         ),
     ]

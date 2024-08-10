@@ -1,4 +1,5 @@
 import asyncio
+
 from exchange.utils import exchange_rate_task
 from logger import get_logger
 

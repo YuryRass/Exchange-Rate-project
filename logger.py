@@ -1,11 +1,12 @@
 import logging
 import os
-from dotenv import load_dotenv # type: ignore
+
+from dotenv import load_dotenv  # type: ignore
 
 load_dotenv()
 
-LOGGING_FORMAT = os.getenv('LOGGING_FORMAT')
-DEBUG_VALUE = os.getenv('DEBUG', 'False') == 'True'
+LOGGING_FORMAT = os.getenv("LOGGING_FORMAT")
+DEBUG_VALUE = os.getenv("DEBUG", "False") == "True"
 if DEBUG_VALUE:
     LOGGING_LEVEL = "DEBUG"
 else:

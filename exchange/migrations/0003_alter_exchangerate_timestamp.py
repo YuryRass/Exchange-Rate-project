@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exchange', '0002_exchangerate_delete_notification'),
+        ("exchange", "0002_exchangerate_delete_notification"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='exchangerate',
-            name='timestamp',
-            field=models.DateTimeField(db_index=True, verbose_name='Дата и время получения курса'),
+            model_name="exchangerate",
+            name="timestamp",
+            field=models.DateTimeField(
+                db_index=True, verbose_name="Дата и время получения курса"
+            ),
         ),
     ]
