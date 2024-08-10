@@ -1,11 +1,10 @@
+from django.http import HttpRequest
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
-
+from django.views import View
+from asgiref.sync import sync_to_async
 from exchange.models import ExchangeRate
 
-def index(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(f"<h1>Обмены курса</h1>")
-
-def rates(request: HttpRequest):
-    exchange_rates = ExchangeRate.objects.all()
-    return render(request, 'exchange/rates.html', {'rates': exchange_rates})
+class ExchangeView(View):
+    async def get(self, request: HttpRequest):
+        exchange_rates = await sync_to_async(list)(ExchangeRate.objects.all())
+        return render(request, 'exchange/rates.html', {'rates': exchange_rates})
